@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wiphada Sirichot — Developer Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+          colors: {
+            base: '#09090b',
+            surface: '#18181b',
+            'surface-2': '#27272a',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { background-color: #09090b; }
+
+    .glow-violet { box-shadow: 0 0 60px -10px rgba(139, 92, 246, 0.35); }
+    .glow-cyan   { box-shadow: 0 0 60px -10px rgba(6, 182, 212, 0.35); }
+
+    .hero-glow {
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139, 92, 246, 0.18) 0%, transparent 65%),
+                  radial-gradient(ellipse 60% 40% at 80% 50%, rgba(6, 182, 212, 0.10) 0%, transparent 65%);
+    }
+
+    .glass {
+      background: rgba(24, 24, 27, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .nav-scrolled {
+      background: rgba(9, 9, 11, 0.85) !important;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    }
+
+    .skill-card:hover { transform: translateY(-4px); }
+
+    .project-card:hover .project-overlay { opacity: 1; }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tag {
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      color: #c4b5fd;
+    }
+
+    .tag-cyan {
+      background: rgba(6, 182, 212, 0.10);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: #67e8f9;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-12px); }
+    }
+    .float { animation: float 5s ease-in-out infinite; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease forwards; }
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.25s; opacity: 0; }
+    .delay-3 { animation-delay: 0.4s; opacity: 0; }
+    .delay-4 { animation-delay: 0.55s; opacity: 0; }
+  </style>
+</head>
+<body class="text-zinc-300 font-sans antialiased">
+
+  <!-- ────────────────────── NAV ────────────────────── -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b border-transparent">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#home" class="text-white font-bold text-lg tracking-tight">
+        W<span class="gradient-text">.</span>Sirichot
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#home"     class="text-zinc-400 hover:text-white transition-colors">Home</a>
+        <a href="#skills"   class="text-zinc-400 hover:text-white transition-colors">Skills</a>
+        <a href="#about"    class="text-zinc-400 hover:text-white transition-colors">About</a>
+        <a href="#contact"  class="px-4 py-1.5 rounded-full bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold transition-colors">Contact</a>
+      </nav>
+
+      <!-- Mobile Hamburger -->
+      <button id="menuBtn" class="md:hidden text-zinc-400 hover:text-white" aria-label="Toggle menu">
+        <i id="menuIcon" class="fa-solid fa-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden glass border-t border-white/5">
+      <nav class="flex flex-col px-6 py-4 gap-4 text-sm font-medium">
+        <a href="#home"     onclick="closeMenu()" class="text-zinc-300 hover:text-white transition-colors">Home</a>
+        <a href="#skills"   onclick="closeMenu()" class="text-zinc-300 hover:text-white transition-colors">Skills</a>
+        <a href="#about"    onclick="closeMenu()" class="text-zinc-300 hover:text-white transition-colors">About</a>
+        <a href="#contact"  onclick="closeMenu()" class="text-zinc-300 hover:text-white transition-colors">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ────────────────────── HERO ────────────────────── -->
+    <section id="home" class="relative min-h-screen flex items-center pt-16 overflow-hidden">
+      <div class="hero-glow absolute inset-0 pointer-events-none"></div>
+
+      <!-- Decorative SVG blob -->
+      <svg class="absolute -top-32 -right-32 w-[600px] opacity-10 pointer-events-none float" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="300" cy="300" r="300" fill="url(#blob-grad)"/>
+        <defs>
+          <radialGradient id="blob-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#8b5cf6"/>
+            <stop offset="100%" stop-color="#06b6d4"/>
+          </radialGradient>
+        </defs>
+      </svg>
+
+      <div class="relative max-w-6xl mx-auto px-6 py-24">
+        <div class="max-w-3xl">
+          <span class="fade-up delay-1 inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-violet-400 mb-6">
+            <span class="w-2 h-2 rounded-full bg-violet-400 animate-pulse"></span>
+            Available for opportunities
+          </span>
+
+          <h1 class="fade-up delay-2 text-6xl sm:text-7xl lg:text-8xl font-extrabold leading-none mb-4 tracking-tight">
+            <span class="text-white">Wiphada</span><br/>
+            <span class="gradient-text">Sirichot</span>
+          </h1>
+
+          <p class="fade-up delay-3 text-base sm:text-lg text-zinc-400 leading-relaxed mb-4 max-w-xl font-medium">
+            Building scalable full-stack applications with clean, intuitive architecture.
+          </p>
+
+          <p class="fade-up delay-3 text-sm text-zinc-500 leading-relaxed mb-10 max-w-xl">
+            Full-stack developer with an INTP mindset — I love dissecting complex problems, writing maintainable code, and building products that feel as good as they work.
+          </p>
+
+          <div class="fade-up delay-4 flex flex-col sm:flex-row gap-4">
+            <a href="#projects" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold transition-all duration-200 glow-violet">
+              <i class="fa-solid fa-briefcase text-sm"></i>
+              View Work
+            </a>
+            <a href="#contact" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl border border-white/15 hover:border-violet-500/60 hover:bg-white/5 text-zinc-300 hover:text-white font-semibold transition-all duration-200">
+              <i class="fa-regular fa-envelope text-sm"></i>
+              Contact Me
+            </a>
+          </div>
+
+          <!-- Social quick links -->
+          <div class="fade-up delay-4 flex items-center gap-5 mt-10 text-zinc-500">
+            <a href="#" class="hover:text-white transition-colors" aria-label="GitHub"><i class="fa-brands fa-github text-xl"></i></a>
+            <a href="#" class="hover:text-white transition-colors" aria-label="LinkedIn"><i class="fa-brands fa-linkedin text-xl"></i></a>
+            <span class="w-px h-4 bg-white/10"></span>
+            <span class="text-xs font-medium tracking-wide">wiphada-sir</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────── SKILLS ────────────────────── -->
+    <section id="skills" class="py-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="mb-14">
+          <p class="text-xs font-semibold tracking-widest uppercase text-violet-400 mb-3">Tech Stack</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white">Skills & Tools</h2>
+          <p class="text-zinc-400 mt-3 max-w-md">Technologies I work with daily — from UI to database and everything in between.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Frontend -->
+          <div class="glass rounded-2xl p-6 transition-all duration-300 skill-card hover:border-violet-500/30">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-9 h-9 rounded-lg bg-violet-500/15 flex items-center justify-center">
+                <i class="fa-solid fa-desktop text-violet-400 text-sm"></i>
+              </div>
+              <h3 class="text-white font-semibold">Frontend</h3>
+            </div>
+            <ul class="space-y-3">
+              <li class="skill-item"><i class="fa-brands fa-react text-cyan-400"></i> React</li>
+              <li class="skill-item"><i class="fa-brands fa-js text-yellow-400"></i> JavaScript (ES6+)</li>
+              <li class="skill-item"><i class="fa-brands fa-html5 text-orange-400"></i> HTML5 / CSS3</li>
+              <li class="skill-item"><i class="fa-solid fa-wind text-sky-400"></i> Tailwind CSS</li>
+            </ul>
+          </div>
+
+          <!-- Backend & DB -->
+          <div class="glass rounded-2xl p-6 transition-all duration-300 skill-card hover:border-cyan-500/30">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-9 h-9 rounded-lg bg-cyan-500/15 flex items-center justify-center">
+                <i class="fa-solid fa-server text-cyan-400 text-sm"></i>
+              </div>
+              <h3 class="text-white font-semibold">Backend & DB</h3>
+            </div>
+            <ul class="space-y-3">
+              <li class="skill-item"><i class="fa-brands fa-node-js text-green-400"></i> Node.js</li>
+              <li class="skill-item"><i class="fa-solid fa-bolt text-zinc-300"></i> Express</li>
+              <li class="skill-item"><i class="fa-solid fa-leaf text-green-500"></i> MongoDB</li>
+              <li class="skill-item"><i class="fa-solid fa-database text-blue-400"></i> PostgreSQL</li>
+            </ul>
+          </div>
+
+          <!-- Tools & Workflow -->
+          <div class="glass rounded-2xl p-6 transition-all duration-300 skill-card hover:border-emerald-500/30">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-9 h-9 rounded-lg bg-emerald-500/15 flex items-center justify-center">
+                <i class="fa-solid fa-wrench text-emerald-400 text-sm"></i>
+              </div>
+              <h3 class="text-white font-semibold">Tools & Workflow</h3>
+            </div>
+            <ul class="space-y-3">
+              <li class="skill-item"><i class="fa-brands fa-git-alt text-orange-400"></i> Git</li>
+              <li class="skill-item"><i class="fa-brands fa-github text-zinc-300"></i> GitHub</li>
+              <li class="skill-item"><i class="fa-solid fa-diagram-project text-violet-400"></i> Agile / Scrum</li>
+              <li class="skill-item"><i class="fa-solid fa-terminal text-emerald-400"></i> CLI & DevTools</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────── ABOUT ────────────────────── -->
+    <section id="about" class="py-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="glass rounded-2xl p-10 md:flex md:gap-16 items-center">
+          <!-- Avatar placeholder -->
+          <div class="flex-shrink-0 mb-8 md:mb-0">
+            <div class="w-36 h-36 rounded-2xl bg-gradient-to-br from-violet-600/30 to-cyan-600/20 flex items-center justify-center mx-auto md:mx-0 glow-violet">
+              <span class="text-5xl font-extrabold gradient-text">W</span>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div>
+            <p class="text-xs font-semibold tracking-widest uppercase text-violet-400 mb-3">About Me</p>
+            <h2 class="text-3xl font-bold text-white mb-5">A developer who thinks<br/>in systems, not just code.</h2>
+            <p class="text-zinc-400 leading-relaxed mb-5">
+              I'm a bootcamp-trained full-stack developer with a computer-science mindset and a strong preference for clean architecture over clever hacks. As an INTP, I gravitate toward understanding the <em class="text-zinc-300 not-italic">why</em> behind every technical decision — that curiosity drives me to write code that's readable, maintainable, and genuinely solves the problem.
+            </p>
+            <p class="text-zinc-400 leading-relaxed">
+              I thrive in remote environments, stay current with the ecosystem, and believe the best features are the ones users never have to think about.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────── CONTACT ────────────────────── -->
+    <section id="contact" class="py-24 bg-[#0d0d10]">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-2xl mx-auto text-center">
+          <p class="text-xs font-semibold tracking-widest uppercase text-cyan-400 mb-3">Contact</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-5">Let's build something<br/><span class="gradient-text">great together.</span></h2>
+          <p class="text-zinc-400 mb-10 leading-relaxed">Whether you have a project in mind, want to collaborate, or just want to say hi — my inbox is always open.</p>
+
+          <a href="mailto:wiphada@example.com"
+             class="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold text-lg transition-all duration-200 glow-violet mb-12">
+            <i class="fa-regular fa-envelope"></i>
+            Send me an email
+          </a>
+
+          <div class="flex justify-center gap-6">
+            <a href="#" aria-label="GitHub"
+               class="w-12 h-12 glass rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:border-violet-500/40 transition-all duration-200">
+              <i class="fa-brands fa-github text-xl"></i>
+            </a>
+            <a href="#" aria-label="LinkedIn"
+               class="w-12 h-12 glass rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:border-cyan-500/40 transition-all duration-200">
+              <i class="fa-brands fa-linkedin text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ────────────────────── FOOTER ────────────────────── -->
+  <footer class="border-t border-white/5 py-8">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-zinc-600">
+      <span>© 2025 Wiphada Sirichot. All rights reserved.</span>
+      <span>Crafted with <span class="text-violet-500">♥</span> using Tailwind CSS</span>
+    </div>
+  </footer>
+
+  <!-- ────────────────────── SKILL ITEM STYLE ────────────────────── -->
+  <style>
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: #a1a1aa;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .skill-item:hover {
+      background: rgba(255,255,255,0.05);
+      color: #f4f4f5;
+    }
+    .skill-item i { width: 18px; text-align: center; }
+  </style>
+
+  <!-- ────────────────────── JS ────────────────────── -->
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add('nav-scrolled');
+      } else {
+        navbar.classList.remove('nav-scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    const menuBtn  = document.getElementById('menuBtn');
+    const menuIcon = document.getElementById('menuIcon');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      menuIcon.className = menuOpen
+        ? 'fa-solid fa-xmark text-xl'
+        : 'fa-solid fa-bars text-xl';
+    });
+
+    function closeMenu() {
+      menuOpen = false;
+      mobileMenu.classList.add('hidden');
+      menuIcon.className = 'fa-solid fa-bars text-xl';
+    }
+
+    // Intersection observer for scroll-triggered fade
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll('.glass').forEach((el) => {
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
